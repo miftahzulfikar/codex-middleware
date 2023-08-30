@@ -17,6 +17,8 @@ app.use(cors());
 const port = 3000;
 
 app.get("/get", async (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   const data = await sheets.spreadsheets.values.get(params, (err, result) => {
     if (err) {
       console.error(err);
@@ -26,6 +28,4 @@ app.get("/get", async (req, res) => {
   });
 });
 
-app.listen(port, "lite-dev9.tokopedia.com", () => {
-  console.log(`codex middleware is listening at http://localhost:${port}`);
-});
+module.exports = app;
